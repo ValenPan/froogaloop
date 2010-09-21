@@ -28,6 +28,10 @@ iframe.api("api_play");
 iframe.api("api_seekTo", 30);
 iframe.api("api_setVolume", 80);
 
+iframe.get("api_getDuration", function(duration){
+   // Handles duration checking
+});
+
 iframe.addEvent("onPlay", function(player_id){
    // Handle onPlay event
 });
