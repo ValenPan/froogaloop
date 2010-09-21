@@ -28,6 +28,10 @@
  * iframe.api("api_play");
  * iframe.api("api_seekTo", 30);
  * iframe.api("api_setVolume", 80);
+ * 
+ * iframe.get("api_getDuration", function(duration){
+ *    // Handles duration checking
+ * });
  *
  * iframe.addEvent("onPlay", function(player_id){
  *    // Handle onPlay event
@@ -63,6 +67,7 @@ var Froogaloop = function() {
 
             if(is_embed_iframe) {
                 cur_frame.api = _that.api;
+                cur_frame.get = _that.get;
                 cur_frame.addEvent = _that.addEvent;
             }
         }
@@ -77,12 +82,18 @@ var Froogaloop = function() {
          *
          * @param functionName (String): Name of the Javascript API function to call. Eg: "api_play".
          * @param params (Array): List of parameters to pass when calling above function.
-         * @param target (HTML Element): Reference to the <iframe> containing the player. Optional if a
-         * target was passed when instantiating Froogaloop
          */
-        api: function( functionName, params )
+        api: function( functionName, params, callback )
         {
             postMessage( functionName, params, this );
+        },
+        
+        get: function(functionName, callback )
+        {
+            var target_id = this.id != '' ? this.id : null;
+            storeCallback(functionName, callback, target_id);
+            
+            postMessage( functionName, null, this );
         },
 
         /*
@@ -210,7 +221,7 @@ var Froogaloop = function() {
         target_id = params[params.length-1];
 
         if(target_id == ''){ target_id = null; }
-
+        
         var callback = getCallback(eventName, target_id);
         if(!callback) return false;
 
