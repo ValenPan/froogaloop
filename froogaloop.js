@@ -83,7 +83,7 @@ var Froogaloop = function() {
          * @param functionName (String): Name of the Javascript API function to call. Eg: "api_play".
          * @param params (Array): List of parameters to pass when calling above function.
          */
-        api: function( functionName, params, callback )
+        api: function( functionName, params )
         {
             postMessage( functionName, params, this );
         },
