@@ -39,3 +39,9 @@ iframe.addEvent("onPlay", function(player_id){
 iframe.addEvent("onSeek", function(time, player_id){
    // Handle onSeek event
 });
+
+
+If any iframe embed codes are added to the page via a script or AJAX call, then you will
+have to manually call Froogaloop.init so that they get the proper methods. Froogaloop.init
+takes an optional parameter that is a NodeList of iframe elements that should get the new
+methods. If none are specified, it will look for all iframes on the page.
