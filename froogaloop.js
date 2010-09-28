@@ -52,11 +52,17 @@ var Froogaloop = function() {
     },
 
     /**
-     * Attaches itself to all vimeo iframes
+     * Attaches itself to all vimeo iframes.
+     * 
+     * @param iframes (NodeList): List of HTML nodes/elements that should be matched against
+     * to check to see if they're a vimeo embed iframe.
      */
-    init = function() {
-        var iframes = document.getElementsByTagName('iframe'),
-        cur_frame,
+    init = function(iframes) {
+        if (!iframes) {
+            iframes = document.getElementsByTagName('iframe');
+        }
+        
+        var cur_frame,
         i = 0,
         length = iframes.length,
         is_embed_iframe;
@@ -334,5 +340,9 @@ var Froogaloop = function() {
         }
     }
     ;//end of Methods list
+    
     init();
+    return {
+        init: init
+    };
 }();
